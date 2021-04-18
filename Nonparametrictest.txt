@@ -1,0 +1,123 @@
+#NON PARAMETRIC TEST
+#Apply when data doesn't follows normal distribution
+
+#1.wilcoxon-sign test: compare two paired samples
+#2.friedman test: more than paired 2 test
+#3.Mann-whitney test: used to compare two independent samples
+#4.kruskal-wallis test: compare more than two independent samples
+#5.chi-square test: check dependency of variable and variable should be categorical
+
+#Wilcoxon test Hypothesis: 
+#This test is used to compare two paired sample test, In this case same patient are test intially and after 2 weeks
+
+#Hypothesis
+-----------------------------------------------------------------------------------------------------------
+#H0: There is no significance difference in calcium level of patient after 2 week.
+#H1: There is a significance difference in calcium level of patient after 2 week.
+
+#This code is written in PYTHON
+
+#data set wilcoxon_data are uplode in seperate file
+
+#Coding lines
+
+-----------------------------------------------------------------------------------------------------------
+
+data = pd.read_excel("1 Wilcoxon.xlsx")
+data.head()
+
+#Here we are applying wilcoxon test on TOTALCIN(Initial chlorine VALUE) and TOTALCW2(chlorine AFTER 2 WEEK)
+
+from scipy.stats import wilcoxon
+stats,p = wilcoxon(data.TOTALCIN,data.TOTALCW2)
+print(stats,p)
+
+#Here if P value is less than 0.05, the null hypothsis will be rejected 
+#It means their is a significance difference present in calcium level.
+
+--------------------------------------------------------------------------------------------------------------
+
+#Friedman test for multiple paired samples
+#This test is used to compare multiple paired sample test, In this case same patient are test intially and after 2 and 4 weeks
+
+#H0: There is no significance difference in calcium level of patient initial and after 2 & 4 week.
+#H1: There is a significance difference in calcium level of patient initial and after 2 & 4 week.
+
+#Coding lines
+
+--------------------------------------------------------------------------------------------------------------
+
+from scipy.stats import friedmanchisquare
+stats,p = friedmanchisquare(data.TOTALCIN,data.TOTALCW2,data.TOTALCW4)
+print(stats,p)
+
+#Here if P value is less than 0.05, the null hypothesis will be rejected 
+#It means their is a significance difference present in calcium level intial and after 2 & 4 weeks.
+
+--------------------------------------------------------------------------------------------------------------
+
+#whitney_data is uploaded in separate file
+
+#Mann Whitney test: used to compare two independent samples
+
+H0: There is no significance difference in sales of design1 and design2
+H1: There is significance difference in sales of design1 and design2
+
+#coding lines
+
+---------------------------------------------------------------------------------------------------------------
+
+data = pd.read_excel("3 Mann Whitney.xlsx",sheet_name=1)
+data.head()
+from scipy.stats import mannwhitneyu
+stats,p = mannwhitneyu(data.Design1,data.Design2)
+print(stats,p)
+
+----------------------------------------------------------------------------------------------------------------
+
+#kruskal_data is uploaded in separate file
+
+#Kruskal-Wallis test: used to compare more than two independent samples
+
+#H0: There is no significance difference in sales of design1,design2,design3
+#H1: There is significance difference in sales of design1,design2,design3
+
+#coding lines
+
+-------------------------------------------------------------------------------------------------------------------
+
+data = pd.read_excel("4 Kruskal Wallis.xlsx")
+data.head()
+from scipy.stats import kruskal
+stats,p = kruskal(data.Design1,data.Design2,data.Design3)
+print(stats,p)
+
+-------------------------------------------------------------------------------------------------------------------
+
+# chisquare_data is uploaded in separate file
+
+#chi-square test: used to check the dependency of variable. Condition-- variable should be categorical
+
+#H0: there is no dependency of gender and smoking
+#H1: there is dependency of gender and smoking
+
+#coding lines
+
+-------------------------------------------------------------------------------------------------------------------
+
+data = pd.read_excel("5 Chi square Test.xlsx")
+data.head()
+
+#there are some null values are there, so we will use dropna() method to drop that row which have nan values
+data = data.dropna()
+data.head()
+# Now i will look female and male who are smoker
+data1 = pd.crosstab(data.Gender,data.Smoking)
+
+from scipy.stats import chi2_contingency
+stats,p,dof,expected = chi2_contingency(data1)
+print(stats,p,dof,expected)
+
+#if P-value is less than (0.05): we have succesfully rejected null hypothesis 
+#Alternatively we can say we have accepted the Alternate hypothsis 
+--------------------------------------------------------------------------------------------------
