@@ -75,7 +75,7 @@ print(stats,p)
 
 ----------------------------------------------------------------------------------------------------------------
 
-#kruskal_data is uploaded in separate file
+#whitney_data is uploaded in separate file, same as whitney test
 
 #Kruskal-Wallis test: used to compare more than two independent samples
 
