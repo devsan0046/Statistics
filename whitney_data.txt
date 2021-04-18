@@ -1,0 +1,14 @@
+Data set for Mann Whitney test and Krushkal test 
+
+Description of data
+--------------------------------------------------------------
+This data contains the sales of design 1, design 2, design 3 information
+
+There are number of sales given for 3 design in 5 different showroom.
+
+Design1	Design2	Design3	Showroom
+11	12	23	1
+17	10	20	2
+16	15	18	3
+14	19	17	4
+15	11	10	5
